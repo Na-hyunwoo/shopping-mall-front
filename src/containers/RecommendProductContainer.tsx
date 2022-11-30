@@ -90,4 +90,8 @@ const Divider = styled.div`
 
 const Wrapper = styled.div`
   grid-column: span 3;
+
+  @media (max-width: 768px) {
+    grid-column: span 2;
+  }
 `;
