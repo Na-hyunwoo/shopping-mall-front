@@ -1,4 +1,4 @@
-import { createRef, Dispatch, SetStateAction, useEffect, useRef } from "react";
+import React, { createRef, Dispatch, SetStateAction, useEffect, useRef } from "react";
 import { useRecoilState } from "recoil";
 import styled from "styled-components";
 import FilterToggle from "../components/FilterToggle";
@@ -43,12 +43,12 @@ const NewestOrderContainer = (props : NewestOrderContainerType) => {
     }
   };
 
-  const productWrapperRef = createRef<HTMLDivElement>();
+  const ref = useRef<HTMLDivElement>(null);
 
   const option = {
     root: null,
     rootMargin: '0px',
-    threshold: 0.1
+    threshold: 0.01
   };
 
   const updatePopularProducts = async () => {
@@ -71,11 +71,11 @@ const NewestOrderContainer = (props : NewestOrderContainerType) => {
   };
 
   useEffect(() => {
-    if (!productWrapperRef.current) return;
+    if (!ref.current) return;
 
     const observer = new IntersectionObserver(callback, option);
 
-    observer.observe(productWrapperRef.current);
+    observer.observe(ref.current);
 
     return () => observer.disconnect()
   }, []);
@@ -106,10 +106,9 @@ const NewestOrderContainer = (props : NewestOrderContainerType) => {
             brand={product.brand}
             pictureID={product.picture.id}
             badges={product.badges}
-            isLast={newestProducts.data.length - 1 === index}
-            ref={productWrapperRef}
           />
         ))}
+        <MockElement ref={ref}/>
       </ProductListWrapper>
     </>
   );
@@ -134,3 +133,5 @@ const ProductListWrapper = styled.div`
     grid-template-columns: repeat(2, 1fr);
   }
 `;
+
+const MockElement = styled.div``;

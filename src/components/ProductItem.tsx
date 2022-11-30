@@ -14,13 +14,12 @@ interface ProductType {
   brand: { id: number, name: string },
   pictureID: string,
   badges: string[],
-  isLast: boolean
 };
 
 const ProductItem = (props: ProductType, ref: ForwardedRef<HTMLDivElement>) => {
 
   const {id, name, likeCount, reviewsCount, price, discountRate, 
-    isDiscounted, brand, pictureID, badges, isLast} = props;
+    isDiscounted, brand, pictureID, badges} = props;
 
   const [isLiked, setIsLiked] = useState(false);
 
@@ -51,7 +50,7 @@ const ProductItem = (props: ProductType, ref: ForwardedRef<HTMLDivElement>) => {
   }
 
   return (
-    <Wrapper ref={isLast ? ref : null}>
+    <Wrapper>
       <ImgWrapper>
         <Img 
           src={`https://usercontents-d.styleshare.io/images/${pictureID}/240x240`}
@@ -85,8 +84,7 @@ const ProductItem = (props: ProductType, ref: ForwardedRef<HTMLDivElement>) => {
   );
 };
 
-// 이렇게 forwardRef로 정의해서 쓰는거 맞냐? 
-export default forwardRef(ProductItem);
+export default ProductItem;
 
 const Wrapper = styled.div`
   padding: 5px;

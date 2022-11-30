@@ -3,7 +3,7 @@ import ProductItem from "../components/ProductItem";
 import RecommendProductContainer from "./RecommendProductContainer";
 import { useRecoilState, useRecoilValue } from "recoil";
 import { popularProductState, recommendProductState } from "../store/products"
-import React, { useEffect, createRef } from "react";
+import React, { useEffect, useRef } from "react";
 import { getProductsByPopularity } from "../services/api/product";
 
 interface RecommendProductDataType extends ProductType{
@@ -40,12 +40,12 @@ const PopularityOrderContainer = () => {
   const [popularProducts, setPopularProducts] = useRecoilState<ProductStateType>(popularProductState);
   const recommendProducts = useRecoilValue<RecommendProductType>(recommendProductState);
 
-  const productWrapperRef = createRef<HTMLDivElement>();
+  const ref = useRef<HTMLDivElement>(null);
 
   const option = {
     root: null,
     rootMargin: '0px',
-    threshold: 0.1
+    threshold: 0.01
   };
 
   const updatePopularProducts = async () => {
@@ -68,11 +68,11 @@ const PopularityOrderContainer = () => {
   };
 
   useEffect(() => {
-    if (!productWrapperRef.current) return;
+    if (!ref.current) return;
 
     const observer = new IntersectionObserver(callback, option);
 
-    observer.observe(productWrapperRef.current);
+    observer.observe(ref.current);
 
     return () => observer.disconnect()
   }, []);
@@ -92,14 +92,13 @@ const PopularityOrderContainer = () => {
             brand={product.brand}
             pictureID={product.picture.id}
             badges={product.badges}
-            isLast={popularProducts.data.length - 1 === index}
-            ref={productWrapperRef}
           />
           {index === (recommendProducts.position - 1) &&  
             <RecommendProductContainer/>
           }
         </React.Fragment>
       ))}
+      <MockElement ref={ref}/>
     </ProductListWrapper>
   );
 };
@@ -114,3 +113,5 @@ const ProductListWrapper = styled.ul`
     grid-template-columns: repeat(2, 1fr);
   }
 `;
+
+const MockElement = styled.div``;
