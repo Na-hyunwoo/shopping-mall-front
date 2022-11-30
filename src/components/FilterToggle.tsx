@@ -23,9 +23,7 @@ export default FilterToggle;
 
 const Button = styled.button<{ isSelected: boolean }>`
   padding: 5px;
-
   border: 1px solid;
-
   background-color: ${({isSelected}) => isSelected 
     ? `rgb(77, 0, 235)`
     : `#FFF`

@@ -48,8 +48,6 @@ const PopularityOrderContainer = () => {
     threshold: 0.1
   };
 
-
-  // 왜 nextUrl이 빈스트링으로 안나오지 ? 빈 스트링으로 나와야 하는 것 아닌가 당연히도 ? 
   const updatePopularProducts = async () => {
     const { data, status } = await getProductsByPopularity(popularProducts.nextUrl);
 

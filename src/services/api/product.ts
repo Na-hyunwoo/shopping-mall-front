@@ -35,7 +35,6 @@ interface getRecommendProductsResponse {
   status: number,
 }
 
-// 이거 url도 다 인자로 받아야겠네 
 export const getProductsByPopularity  = async (url : string) : Promise<GetProductsResponse>  => {
 
   return await apiInstance

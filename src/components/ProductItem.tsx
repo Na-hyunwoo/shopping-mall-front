@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import { nanoid } from 'nanoid';
-import { memo, RefObject, useRef, useState, forwardRef, ForwardedRef, useEffect } from "react";
+import { useState, forwardRef, ForwardedRef } from "react";
 import { LineHeart, FillHeart } from "../assets/svgComponents/icon";
 
 interface ProductType {
@@ -22,7 +22,6 @@ const ProductItem = (props: ProductType, ref: ForwardedRef<HTMLDivElement>) => {
   const {id, name, likeCount, reviewsCount, price, discountRate, 
     isDiscounted, brand, pictureID, badges, isLast} = props;
 
-  // like click될 때 컴포넌트 전부 랜더링 되는거 별론데. 방법이 없을까 ?
   const [isLiked, setIsLiked] = useState(false);
 
   const formatterToOneDecimalPoint = new Intl.NumberFormat('en', {
@@ -38,7 +37,6 @@ const ProductItem = (props: ProductType, ref: ForwardedRef<HTMLDivElement>) => {
     ? formatterToOneDecimalPoint.format(reviewsCount)
     : reviewsCount;
   
-  // switch 뭔가 구린데, object로 못바꾸나 ?
   const badgeKr = (name: string) => {
     switch (name) {
       case "free_delivery":

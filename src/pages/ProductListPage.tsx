@@ -2,8 +2,6 @@ import styled from "styled-components";
 import React, { useEffect, useState } from "react";
 import TopTab from "../components/TopTab";
 import { useSearchParams } from "react-router-dom";
-import { useRecoilValue } from "recoil";
-import { newestProductState, popularProductState } from "../store/products";
 import NewestOrderContainer from "../containers/NewestOrderContainer";
 import PopularityOrderContainer from "../containers/PopularityOrderContainer";
 

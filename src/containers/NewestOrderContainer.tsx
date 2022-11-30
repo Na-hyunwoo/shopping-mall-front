@@ -29,8 +29,8 @@ const NewestOrderContainer = (props : NewestOrderContainerType) => {
       setFilterState((prev) => prev.filter((value) => value !== clickedText));
 
       // 필터 삭제시 query 변경 로직
-      const filterValues = searchParams.getAll("filter");
-      const filteredValues = filterValues.filter((val) => val !== clickedText);
+      const filteredValues = searchParams.getAll("filter")
+        .filter((val) => val !== clickedText);
       
       searchParams.delete("filter");
       filteredValues.forEach((val) => searchParams.append("filter", val));
@@ -74,8 +74,6 @@ const NewestOrderContainer = (props : NewestOrderContainerType) => {
     if (!productWrapperRef.current) return;
 
     const observer = new IntersectionObserver(callback, option);
-
-    console.log(productWrapperRef.current);;
 
     observer.observe(productWrapperRef.current);
 
