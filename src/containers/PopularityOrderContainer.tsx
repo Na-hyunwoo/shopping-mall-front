@@ -6,7 +6,7 @@ import { popularProductState, recommendProductState } from "../store/products"
 import React, { useEffect, createRef } from "react";
 import { getProductsByPopularity } from "../services/api/product";
 
-type RecommendDataType = {
+interface RecommendDataType {
   id: number,
   name: string,
   reviewsCount: number,
@@ -19,15 +19,14 @@ type RecommendDataType = {
   reviews: {id: number, picture: {id: string}, authorUsername: string}[],
 }
 
-type RecommendProductType = {
+interface RecommendProductType {
   type: string,
   title: string,
   position: number, 
   data: RecommendDataType[],
 }
 
-// TODO: brand, picture, badges type 이렇게 지정하는거 맞냐 ? 
-type ProductType = {
+interface ProductType {
   id: number,
   name: string,
   likeCount: number,
@@ -40,7 +39,7 @@ type ProductType = {
   badges: string[],
 }
 
-type ProductStateType = {
+interface ProductStateType {
   data: ProductType[],
   nextUrl : string
 }

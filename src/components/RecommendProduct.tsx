@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-type RecommendProductType = {
+interface RecommendProductType {
   id: number,
   name: string,
   reviewsCount: number,

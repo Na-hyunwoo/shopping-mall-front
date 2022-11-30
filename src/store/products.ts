@@ -1,6 +1,6 @@
 import { atom } from "recoil";
 
-type ProductType = {
+interface ProductType {
   id: number,
   name: string,
   likeCount: number,
@@ -13,7 +13,7 @@ type ProductType = {
   badges: string[],
 }
 
-type ProductStateType = {
+interface ProductStateType {
   data: ProductType[],
   nextUrl : string
 }
@@ -30,7 +30,7 @@ export const newestProductState = atom<ProductStateType>({
 
 // 위에랑 겹치나 ?
 // 전체적인 타입 네이밍 수정 필요. 굉장히 혼잡하다. 
-type RecommendDataType = {
+interface RecommendDataType {
   id: number,
   name: string,
   reviewsCount: number,
@@ -43,7 +43,7 @@ type RecommendDataType = {
   reviews: {id: number, picture: {id: string}, authorUsername: string}[],
 }
 
-type RecommendProductType = {
+interface RecommendProductType {
   type: string,
   title: string,
   position: number, 

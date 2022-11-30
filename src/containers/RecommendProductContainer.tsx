@@ -3,7 +3,7 @@ import RecommendProduct from "../components/RecommendProduct";
 import { useRecoilValue } from "recoil";
 import { recommendProductState } from "../store/products";
 
-type RecommendDataType = {
+interface RecommendDataType {
   id: number,
   name: string,
   reviewsCount: number,
@@ -16,7 +16,7 @@ type RecommendDataType = {
   reviews: {id: number, picture: {id: string}, authorUsername: string}[],
 }
 
-type RecommendProductType = {
+interface RecommendProductType {
   type: string,
   title: string,
   position: number, 

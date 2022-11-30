@@ -4,7 +4,7 @@ import { useSetRecoilState } from "recoil";
 import { newestProductState, popularProductState, recommendProductState } from "../store/products";
 import { getProductsByNewest, getProductsByPopularity, getRecommendProducts } from "../services/api/product";
 
-type ProductType = {
+interface ProductType {
   id: number,
   name: string,
   likeCount: number,
