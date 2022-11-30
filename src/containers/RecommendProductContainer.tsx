@@ -3,7 +3,7 @@ import RecommendProduct from "../components/RecommendProduct";
 import { useRecoilValue } from "recoil";
 import { recommendProductState } from "../store/products";
 
-interface RecommendDataType {
+interface RecommendProductDataType {
   id: number,
   name: string,
   reviewsCount: number,
@@ -20,7 +20,7 @@ interface RecommendProductType {
   type: string,
   title: string,
   position: number, 
-  data: RecommendDataType[],
+  data: RecommendProductDataType[],
 }
 
 const RecommendProductContainer = () => {

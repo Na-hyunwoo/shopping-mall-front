@@ -8,14 +8,14 @@ import { newestProductState } from "../store/products";
 
 const filterList = ["무료배송", "단독"];
 
-interface NewestOrderContainerProps {
+interface NewestOrderContainerType {
   filterState: string[],
   setFilterState: Dispatch<SetStateAction<string[]>>,
   searchParams: URLSearchParams,
   setSearchParams: Dispatch<SetStateAction<URLSearchParams>>,
 }
 
-const NewestOrderContainer = (props : NewestOrderContainerProps) => {
+const NewestOrderContainer = (props : NewestOrderContainerType) => {
   
   const { filterState, setFilterState, searchParams, setSearchParams } = props;
 

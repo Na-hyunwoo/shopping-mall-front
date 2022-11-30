@@ -1,13 +1,13 @@
 import React from "react";
 import styled from "styled-components";
 
-interface TobTabProps {
+interface TobTabTypes {
   title: string,
   isSelected: boolean,
   onClick: (e: React.MouseEvent<HTMLDivElement>) => void,
 }
 
-const TopTab = (props: TobTabProps) => {
+const TopTab = (props: TobTabTypes) => {
 
   const {title, isSelected, onClick} = props;
 

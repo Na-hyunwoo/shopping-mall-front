@@ -19,6 +19,22 @@ interface GetProductsResponse {
   status: number,
 }
 
+interface RecommendDataType extends ProductType{
+  reviews: {id: number, picture: {id: string}, authorUsername: string}[],
+}
+
+interface RecommendProductType {
+  type: string,
+  title: string,
+  position: number, 
+  data: RecommendDataType[],
+}
+
+interface getRecommendProductsResponse {
+  data: { components: RecommendProductType[] }
+  status: number,
+}
+
 // 이거 url도 다 인자로 받아야겠네 
 export const getProductsByPopularity  = async (url : string) : Promise<GetProductsResponse>  => {
 
@@ -63,32 +79,6 @@ export const getProductsByNewest = async (url : string) : Promise<GetProductsRes
       }
     });
 };
-
-
-interface RecommendDataType {
-  id: number,
-  name: string,
-  reviewsCount: number,
-  price: number,
-  discountRate: number,
-  isDiscounted: boolean,
-  brand: {id: number, name: string},
-  picture: {id: string},
-  badges: string[],
-  reviews: {id: number, picture: {id: string}, authorUsername: string}[],
-}
-
-interface RecommendProductType {
-  type: string,
-  title: string,
-  position: number, 
-  data: RecommendDataType[],
-}
-
-interface getRecommendProductsResponse {
-  data: { components: RecommendProductType[] }
-  status: number,
-}
 
 export const getRecommendProducts = async (url : string) : Promise<getRecommendProductsResponse> => {
 

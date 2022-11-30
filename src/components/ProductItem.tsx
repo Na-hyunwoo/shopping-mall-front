@@ -3,7 +3,7 @@ import { nanoid } from 'nanoid';
 import { memo, RefObject, useRef, useState, forwardRef, ForwardedRef, useEffect } from "react";
 import { LineHeart, FillHeart } from "../assets/svgComponents/icon";
 
-interface ProductItemProps {
+interface ProductType {
   id: number,
   name: string,
   likeCount: number,
@@ -17,7 +17,7 @@ interface ProductItemProps {
   isLast: boolean
 };
 
-const ProductItem = (props: ProductItemProps, ref: ForwardedRef<HTMLDivElement>) => {
+const ProductItem = (props: ProductType, ref: ForwardedRef<HTMLDivElement>) => {
 
   const {id, name, likeCount, reviewsCount, price, discountRate, 
     isDiscounted, brand, pictureID, badges, isLast} = props;

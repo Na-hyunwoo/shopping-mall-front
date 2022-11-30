@@ -6,16 +6,7 @@ import { popularProductState, recommendProductState } from "../store/products"
 import React, { useEffect, createRef } from "react";
 import { getProductsByPopularity } from "../services/api/product";
 
-interface RecommendDataType {
-  id: number,
-  name: string,
-  reviewsCount: number,
-  price: number,
-  discountRate: number,
-  isDiscounted: boolean,
-  brand: {id: number, name: string},
-  picture: {id: string},
-  badges: string[],
+interface RecommendProductDataType extends ProductType{
   reviews: {id: number, picture: {id: string}, authorUsername: string}[],
 }
 
@@ -23,7 +14,7 @@ interface RecommendProductType {
   type: string,
   title: string,
   position: number, 
-  data: RecommendDataType[],
+  data: RecommendProductDataType[],
 }
 
 interface ProductType {

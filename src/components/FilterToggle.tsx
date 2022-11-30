@@ -1,13 +1,13 @@
 import styled from "styled-components";
 import React from "react";
 
-interface FilterToggleProps {
+interface FilterToggleType {
   title: string,
   onClick: (e: React.MouseEvent<HTMLButtonElement>) => void,
   isSelected: boolean,
 }
 
-const FilterToggle = (props: FilterToggleProps) => {
+const FilterToggle = (props: FilterToggleType) => {
 
   const { title, onClick, isSelected } = props;
 
