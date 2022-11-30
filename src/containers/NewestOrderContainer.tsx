@@ -1,4 +1,4 @@
-import { Dispatch, SetStateAction } from "react";
+import { createRef, Dispatch, SetStateAction, useEffect, useRef } from "react";
 import styled from "styled-components";
 import FilterToggle from "../components/FilterToggle";
 import ProductItem from "../components/ProductItem";
@@ -53,6 +53,31 @@ const NewestOrderContainer = (props : NewestOrderContainerProps) => {
     }
   };
 
+  const productWrapperRef = createRef<HTMLDivElement>();
+
+  const option = {
+    root: null,
+    rootMargin: '0px',
+    threshold: 0.5
+  };
+
+  const callback = (entries: IntersectionObserverEntry[], observer: IntersectionObserver) => {
+    entries.forEach((entry) => {
+      if (entry.isIntersecting) console.log(entry, observer);
+    })
+  };
+
+  useEffect(() => {
+    if (!productWrapperRef.current) return;
+
+    const observer = new IntersectionObserver(callback, option);
+
+    observer.observe(productWrapperRef.current);
+
+    return () => observer.disconnect()
+  }, [productWrapperRef, option, callback]);
+
+
   return (
     <>
       <FilterWrapper>
@@ -66,7 +91,7 @@ const NewestOrderContainer = (props : NewestOrderContainerProps) => {
         ))}
       </FilterWrapper>
       <ProductListWrapper>
-        {productList.map((product) => (
+        {productList.map((product, index) => (
           <ProductItem 
             key={product.id}
             id={product.id}
@@ -79,6 +104,8 @@ const NewestOrderContainer = (props : NewestOrderContainerProps) => {
             brand={product.brand}
             pictureID={product.picture.id}
             badges={product.badges}
+            isLast={productList.length - 1 === index}
+            ref={productWrapperRef}
           />
         ))}
       </ProductListWrapper>

@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import { nanoid } from 'nanoid';
-import { memo, useState } from "react";
+import { memo, RefObject, useRef, useState, forwardRef, ForwardedRef } from "react";
 import { LineHeart, FillHeart } from "../assets/svgComponents/icon";
 
 interface ProductItemProps {
@@ -14,12 +14,13 @@ interface ProductItemProps {
   brand: { id: number, name: string },
   pictureID: string,
   badges: string[],
+  isLast: boolean
 };
 
-const ProductItem = (props: ProductItemProps) => {
+const ProductItem = (props: ProductItemProps, ref: ForwardedRef<HTMLDivElement>) => {
 
   const {id, name, likeCount, reviewsCount, price, discountRate, 
-    isDiscounted, brand, pictureID, badges} = props;
+    isDiscounted, brand, pictureID, badges, isLast} = props;
 
   // like click될 때 컴포넌트 전부 랜더링 되는거 별론데. 방법이 없을까 ?
   const [isLiked, setIsLiked] = useState(false);
@@ -52,7 +53,7 @@ const ProductItem = (props: ProductItemProps) => {
   }
 
   return (
-    <Wrapper>
+    <Wrapper ref={isLast ? ref : null}>
       <ImgWrapper>
         <Img 
           src={`https://usercontents-d.styleshare.io/images/${pictureID}/240x240`}
@@ -86,7 +87,8 @@ const ProductItem = (props: ProductItemProps) => {
   );
 };
 
-export default ProductItem;
+// 이렇게 forwardRef로 정의해서 쓰는거 맞냐? 
+export default forwardRef(ProductItem);
 
 const Wrapper = styled.div`
   padding: 5px;

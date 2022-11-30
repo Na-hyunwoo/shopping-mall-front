@@ -1,15 +1,29 @@
 import { atom } from "recoil";
 
-export const popularProductState = atom({
+type ProductType = {
+  id: number,
+  name: string,
+  likeCount: number,
+  reviewsCount: number,
+  price: number,
+  discountRate: number,
+  isDiscounted: boolean, 
+  brand: { id: number, name: string },
+  picture: { id: string },
+  badges: string[],
+}
+
+export const popularProductState = atom<ProductType[]>({
   key: "popularProductState",
-  default: [],
+  default: undefined
 });
 
-export const newestProductState = atom({
+export const newestProductState = atom<ProductType[]>({
   key: "newestProductState",
-  default: [],
+  default: undefined
 })
 
+// 위에랑 겹치나 ?
 type RecommendDataType = {
   id: number,
   name: string,
@@ -32,10 +46,5 @@ type RecommendProductType = {
 
 export const recommendProductState = atom<RecommendProductType>({
   key: "recommendProductState",
-  default: {
-    type: "",
-    title: "",
-    position: 0,
-    data: []
-  },
+  default: undefined,
 })

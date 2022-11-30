@@ -3,6 +3,8 @@ import ProductItem from "../components/ProductItem";
 import RecommendProductContainer from "./RecommendProductContainer";
 import { useRecoilValue } from "recoil";
 import { recommendProductState } from "../store/products"
+import React, { useRef, useEffect, createRef } from "react";
+
 
 // TODO: brand, picture, badges type 이렇게 지정하는거 맞냐 ? 
 type ProductType = {
@@ -48,12 +50,35 @@ const PopularityOrderContainer = (props: PopularityOrderContainerProps) => {
 
   const recommendProducts = useRecoilValue<RecommendProductType>(recommendProductState);
 
+  const productWrapperRef = createRef<HTMLDivElement>();
+
+  const option = {
+    root: null,
+    rootMargin: '0px',
+    threshold: 0.5
+  };
+
+  const callback = (entries: IntersectionObserverEntry[], observer: IntersectionObserver) => {
+    entries.forEach((entry) => {
+      if (entry.isIntersecting) console.log(entry, observer);
+    })
+  };
+
+  useEffect(() => {
+    if (!productWrapperRef.current) return;
+
+    const observer = new IntersectionObserver(callback, option);
+
+    observer.observe(productWrapperRef.current);
+
+    return () => observer.disconnect()
+  }, [productWrapperRef, option, callback]);
+
   return (
     <ProductListWrapper>
       {productList.map((product, index) => (
-        <>
+        <React.Fragment key={product.id}>
           <ProductItem 
-            key={product.id}
             id={product.id}
             name={product.name}
             likeCount={product.likeCount}
@@ -64,11 +89,13 @@ const PopularityOrderContainer = (props: PopularityOrderContainerProps) => {
             brand={product.brand}
             pictureID={product.picture.id}
             badges={product.badges}
+            isLast={productList.length - 1 === index}
+            ref={productWrapperRef}
           />
           {index === (recommendProducts.position - 1) &&  
-            <RecommendProductContainer />
+            <RecommendProductContainer/>
           }
-        </>
+        </React.Fragment>
       ))}
     </ProductListWrapper>
   );
@@ -76,7 +103,7 @@ const PopularityOrderContainer = (props: PopularityOrderContainerProps) => {
 
 export default PopularityOrderContainer;
 
-const ProductListWrapper = styled.div`
+const ProductListWrapper = styled.ul`
   display: grid;
   grid-template-columns: repeat(3, 1fr);
 
