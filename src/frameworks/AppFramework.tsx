@@ -2,7 +2,6 @@ import { useEffect, useState } from "react";
 import { Outlet } from "react-router-dom";
 import { useSetRecoilState } from "recoil";
 import { newestProductState, popularProductState, recommendProductState } from "../store/products";
-import axios from "axios";
 import { getProductsByNewest, getProductsByPopularity, getRecommendProducts } from "../services/api/product";
 
 type ProductType = {
@@ -32,7 +31,10 @@ const AppFramework = () => {
     const { data, status } = await getProductsByPopularity(url);
 
     if (status === 200) {
-      setPopularProducts(data.data);
+      setPopularProducts({
+        data: data.data,
+        nextUrl: data.paging.next
+      });
     }
   };
 
@@ -42,7 +44,10 @@ const AppFramework = () => {
     const { data, status } = await getProductsByNewest(url);
 
     if (status === 200) {
-      setNewestProducts(data.data);
+      setNewestProducts({
+        data: data.data,
+        nextUrl: data.paging.next
+      });
     }
   };
 

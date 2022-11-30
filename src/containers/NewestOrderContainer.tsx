@@ -1,35 +1,25 @@
 import { createRef, Dispatch, SetStateAction, useEffect, useRef } from "react";
+import { useRecoilState } from "recoil";
 import styled from "styled-components";
 import FilterToggle from "../components/FilterToggle";
 import ProductItem from "../components/ProductItem";
+import { getProductsByNewest } from "../services/api/product";
+import { newestProductState } from "../store/products";
 
 const filterList = ["무료배송", "단독"];
-
-// TODO: brand, picture, badges type 이렇게 지정하는거 맞냐 ? 
-type ProductType = {
-  id: number,
-  name: string,
-  likeCount: number,
-  reviewsCount: number,
-  price: number,
-  discountRate: number,
-  isDiscounted: boolean, 
-  brand: { id: number, name: string },
-  picture: { id: string },
-  badges: string[],
-}
 
 interface NewestOrderContainerProps {
   filterState: string[],
   setFilterState: Dispatch<SetStateAction<string[]>>,
   searchParams: URLSearchParams,
   setSearchParams: Dispatch<SetStateAction<URLSearchParams>>,
-  productList: ProductType[],
 }
 
 const NewestOrderContainer = (props : NewestOrderContainerProps) => {
   
-  const { filterState, setFilterState, searchParams, setSearchParams, productList } = props;
+  const { filterState, setFilterState, searchParams, setSearchParams } = props;
+
+  const [newestProducts, setNewestProducts] = useRecoilState(newestProductState);
 
   const handleClickFilter = (e: React.MouseEvent<HTMLButtonElement>) => {
     const eventTarget = e.target as HTMLElement;
@@ -58,12 +48,25 @@ const NewestOrderContainer = (props : NewestOrderContainerProps) => {
   const option = {
     root: null,
     rootMargin: '0px',
-    threshold: 0.5
+    threshold: 0.1
   };
 
+  const updatePopularProducts = async () => {
+    const { data, status } = await getProductsByNewest(newestProducts.nextUrl);
+
+    if (status === 200) {
+      setNewestProducts((prev) => ({
+        ...prev,
+        data: [...prev.data, ...data.data],
+      }));
+    }
+  }
+
   const callback = (entries: IntersectionObserverEntry[], observer: IntersectionObserver) => {
-    entries.forEach((entry) => {
-      if (entry.isIntersecting) console.log(entry, observer);
+    entries.forEach(async (entry) => {
+      if (entry.isIntersecting) {
+        await updatePopularProducts();
+      }
     })
   };
 
@@ -72,11 +75,12 @@ const NewestOrderContainer = (props : NewestOrderContainerProps) => {
 
     const observer = new IntersectionObserver(callback, option);
 
+    console.log(productWrapperRef.current);;
+
     observer.observe(productWrapperRef.current);
 
     return () => observer.disconnect()
-  }, [productWrapperRef, option, callback]);
-
+  }, []);
 
   return (
     <>
@@ -91,7 +95,7 @@ const NewestOrderContainer = (props : NewestOrderContainerProps) => {
         ))}
       </FilterWrapper>
       <ProductListWrapper>
-        {productList.map((product, index) => (
+        {newestProducts.data.map((product, index) => (
           <ProductItem 
             key={product.id}
             id={product.id}
@@ -104,7 +108,7 @@ const NewestOrderContainer = (props : NewestOrderContainerProps) => {
             brand={product.brand}
             pictureID={product.picture.id}
             badges={product.badges}
-            isLast={productList.length - 1 === index}
+            isLast={newestProducts.data.length - 1 === index}
             ref={productWrapperRef}
           />
         ))}

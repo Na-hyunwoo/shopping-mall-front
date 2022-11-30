@@ -13,17 +13,23 @@ type ProductType = {
   badges: string[],
 }
 
-export const popularProductState = atom<ProductType[]>({
+type ProductStateType = {
+  data: ProductType[],
+  nextUrl : string
+}
+
+export const popularProductState = atom<ProductStateType>({
   key: "popularProductState",
   default: undefined
 });
 
-export const newestProductState = atom<ProductType[]>({
+export const newestProductState = atom<ProductStateType>({
   key: "newestProductState",
   default: undefined
 })
 
 // 위에랑 겹치나 ?
+// 전체적인 타입 네이밍 수정 필요. 굉장히 혼잡하다. 
 type RecommendDataType = {
   id: number,
   name: string,

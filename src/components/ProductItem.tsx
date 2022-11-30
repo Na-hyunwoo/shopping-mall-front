@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import { nanoid } from 'nanoid';
-import { memo, RefObject, useRef, useState, forwardRef, ForwardedRef } from "react";
+import { memo, RefObject, useRef, useState, forwardRef, ForwardedRef, useEffect } from "react";
 import { LineHeart, FillHeart } from "../assets/svgComponents/icon";
 
 interface ProductItemProps {
