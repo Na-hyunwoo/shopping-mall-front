@@ -42,12 +42,6 @@ const PopularityOrderContainer = () => {
 
   const ref = useRef<HTMLDivElement>(null);
 
-  const option = {
-    root: null,
-    rootMargin: '0px',
-    threshold: 0.01
-  };
-
   const updatePopularProducts = async () => {
     const { data, status } = await getProductsByPopularity(popularProducts.nextUrl);
 
@@ -59,11 +53,15 @@ const PopularityOrderContainer = () => {
     }
   };
 
+  const option = {
+    root: null,
+    rootMargin: '0px',
+    threshold: 0.01
+  };
+
   const callback = (entries: IntersectionObserverEntry[], observer: IntersectionObserver) => {
     entries.forEach(async (entry) => {
-      if (entry.isIntersecting) {
-        await updatePopularProducts();
-      }
+      if (entry.isIntersecting) await updatePopularProducts();
     })
   };
 
@@ -71,7 +69,6 @@ const PopularityOrderContainer = () => {
     if (!ref.current) return;
 
     const observer = new IntersectionObserver(callback, option);
-
     observer.observe(ref.current);
 
     return () => observer.disconnect()

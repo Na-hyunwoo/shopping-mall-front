@@ -1,4 +1,4 @@
-import React, { createRef, Dispatch, SetStateAction, useEffect, useRef } from "react";
+import React, { Dispatch, SetStateAction, useEffect, useRef } from "react";
 import { useRecoilState } from "recoil";
 import styled from "styled-components";
 import FilterToggle from "../components/FilterToggle";
@@ -20,6 +20,8 @@ const NewestOrderContainer = (props : NewestOrderContainerType) => {
   const { filterState, setFilterState, searchParams, setSearchParams } = props;
 
   const [newestProducts, setNewestProducts] = useRecoilState(newestProductState);
+
+  const ref = useRef<HTMLDivElement>(null);
 
   const handleClickFilter = (e: React.MouseEvent<HTMLButtonElement>) => {
     const eventTarget = e.target as HTMLElement;
@@ -43,14 +45,6 @@ const NewestOrderContainer = (props : NewestOrderContainerType) => {
     }
   };
 
-  const ref = useRef<HTMLDivElement>(null);
-
-  const option = {
-    root: null,
-    rootMargin: '0px',
-    threshold: 0.01
-  };
-
   const updatePopularProducts = async () => {
     const { data, status } = await getProductsByNewest(newestProducts.nextUrl);
 
@@ -62,11 +56,15 @@ const NewestOrderContainer = (props : NewestOrderContainerType) => {
     }
   }
 
+  const option = {
+    root: null,
+    rootMargin: '0px',
+    threshold: 0.01
+  };
+
   const callback = (entries: IntersectionObserverEntry[], observer: IntersectionObserver) => {
     entries.forEach(async (entry) => {
-      if (entry.isIntersecting) {
-        await updatePopularProducts();
-      }
+      if (entry.isIntersecting) await updatePopularProducts();
     })
   };
 
@@ -74,7 +72,6 @@ const NewestOrderContainer = (props : NewestOrderContainerType) => {
     if (!ref.current) return;
 
     const observer = new IntersectionObserver(callback, option);
-
     observer.observe(ref.current);
 
     return () => observer.disconnect()

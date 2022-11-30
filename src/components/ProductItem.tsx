@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import { nanoid } from 'nanoid';
-import { useState, forwardRef, ForwardedRef } from "react";
+import { useState } from "react";
 import { LineHeart, FillHeart } from "../assets/svgComponents/icon";
 
 interface ProductType {
@@ -16,7 +16,7 @@ interface ProductType {
   badges: string[],
 };
 
-const ProductItem = (props: ProductType, ref: ForwardedRef<HTMLDivElement>) => {
+const ProductItem = (props: ProductType) => {
 
   const {id, name, likeCount, reviewsCount, price, discountRate, 
     isDiscounted, brand, pictureID, badges} = props;
