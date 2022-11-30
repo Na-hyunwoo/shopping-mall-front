@@ -1,7 +1,6 @@
 import styled from "styled-components";
 import React from "react";
 
-// interface type 통합하기.
 interface FilterToggleProps {
   title: string,
   onClick: (e: React.MouseEvent<HTMLButtonElement>) => void,

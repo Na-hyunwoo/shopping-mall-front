@@ -1,7 +1,7 @@
 import axios from "axios";
 import { apiInstance } from ".";
 
-type ProductType = {
+interface ProductType {
   id: number,
   name: string,
   likeCount: number,
@@ -14,7 +14,7 @@ type ProductType = {
   badges: string[],
 }
 
-type GetProductsResponse = {
+interface GetProductsResponse {
   data: {data: ProductType[], paging: {next: string}},
   status: number,
 }
@@ -65,7 +65,7 @@ export const getProductsByNewest = async (url : string) : Promise<GetProductsRes
 };
 
 
-type RecommendDataType = {
+interface RecommendDataType {
   id: number,
   name: string,
   reviewsCount: number,
@@ -78,14 +78,14 @@ type RecommendDataType = {
   reviews: {id: number, picture: {id: string}, authorUsername: string}[],
 }
 
-type RecommendProductType = {
+interface RecommendProductType {
   type: string,
   title: string,
   position: number, 
   data: RecommendDataType[],
 }
 
-type getRecommendProductsResponse = {
+interface getRecommendProductsResponse {
   data: { components: RecommendProductType[] }
   status: number,
 }
