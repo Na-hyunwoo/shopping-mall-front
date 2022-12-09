@@ -29,9 +29,7 @@
 2. npm start
 
 ## 결과물
-![화면 기록 2022-12-08 오전 2 47 45](https://user-images.githubusercontent.com/22545843/206651756-56885c50-c459-48ee-a77d-1aa111b801c9.gif)
-
-
+https://user-images.githubusercontent.com/22545843/206652371-2f3ad81b-8995-408d-84b0-f02a2e71a3a2.mov
 
 ## 트러블 슈팅 
 
