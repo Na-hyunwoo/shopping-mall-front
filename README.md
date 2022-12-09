@@ -28,6 +28,11 @@
 1. npm install
 2. npm start
 
+## 결과물
+![화면 기록 2022-12-08 오전 2 47 45](https://user-images.githubusercontent.com/22545843/206651756-56885c50-c459-48ee-a77d-1aa111b801c9.gif)
+
+
+
 ## 트러블 슈팅 
 
 일반적으로 무한 스크롤을 구현하기 위해 scroll을 감지해서 scroll이 바닥에 닿을 때 쯤에 api를 fetch하는 방식을 사용한다.
