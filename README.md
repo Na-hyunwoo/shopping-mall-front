@@ -29,7 +29,7 @@
 2. npm start
 
 ## 결과물
-https://user-images.githubusercontent.com/22545843/206652371-2f3ad81b-8995-408d-84b0-f02a2e71a3a2.mov=600x600
+https://user-images.githubusercontent.com/22545843/206652371-2f3ad81b-8995-408d-84b0-f02a2e71a3a2.mov
 
 ## 트러블 슈팅 
 
