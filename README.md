@@ -55,13 +55,6 @@ https://user-images.githubusercontent.com/22545843/206652371-2f3ad81b-8995-408d-
 
 ```js
 <>
-  <FilterWrapper>
-    {filterList.map(filter => (
-      <FilterToggle
-        ...props
-      />
-    ))}
-  </FilterWrapper>
   <ProductListWrapper>
     {newestProducts.data.map((product, index) => (
       <ProductItem 
