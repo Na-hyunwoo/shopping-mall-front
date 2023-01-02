@@ -98,6 +98,4 @@ useEffect(() => {
 }, []);
 ```
 
-이는 사실 내가 생각한 것은 아니고, [zum 페이지](https://start.zum.com/popularity)가 이렇게 구현을 했다. 
-
 이렇게 Intersection Observer API를 통하면 scroll을 감지하지 않고도 아주 좋은 성능으로 api를 fetch할 수 있다. 뿌듯하다 !
